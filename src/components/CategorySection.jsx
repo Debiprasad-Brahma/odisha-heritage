@@ -2,12 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const categories = [
-  { name: "Temples", img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Lingaraj_Temple.jpg" },
-  { name: "Waterfalls", img: "https://upload.wikimedia.org/wikipedia/commons/2/22/Barehipani_Falls.jpg" },
-  { name: "Forts", img: "https://upload.wikimedia.org/wikipedia/commons/4/45/Barabati_Fort_Cuttack.jpg" },
-  { name: "Beaches", img: "https://upload.wikimedia.org/wikipedia/commons/2/24/Puri_Beach.jpg" },
-  { name: "Handicrafts", img: "https://upload.wikimedia.org/wikipedia/commons/1/12/Pipili_Applique_Work.jpg" },
-  { name: "Festivals", img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Ratha-Yatra-Puri.jpg" },
+  { name: "Temples", img: "https://static.toiimg.com/photo/47158773.cms" },
+  { name: "Waterfalls", img: "https://www.orissatourism.org/helpers/images/nrusinghanath-wf.jpg" },
+  { name: "Forts", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Barabati_Fort_%2C_Cuttack_01.jpg/720px-Barabati_Fort_%2C_Cuttack_01.jpg" },
+  { name: "Beaches", img: "https://www.tourismorissa.org/wp-content/uploads/2024/12/Puri-Sea-Beach.jpg" },
+  { name: "Handicrafts", img: "https://www.orissatourism.org/helpers/images/pattachitra-hc.jpg" },
+  { name: "Festivals", img: "https://www.mypuritour.com/wp-content/uploads/2025/07/festival-of-odisha-1.jpg" },
 ];
 
 const CategorySection = () => {

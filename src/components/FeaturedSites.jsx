@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 const featured = [
   {
     name: "Konark Sun Temple",
-    img: "https://upload.wikimedia.org/wikipedia/commons/5/58/Konark_Temple.jpg",
+    img: "https://upload.wikimedia.org/wikipedia/commons/4/47/Konarka_Temple.jpg",
     desc: "A 13th-century architectural marvel and UNESCO World Heritage Site.",
   },
   {
     name: "Chilika Lake",
-    img: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Chilika_Lake_Boat.jpg",
+    img: "https://theunstumbled.com/wp-content/uploads/2024/12/CHILIKA.jpg",
     desc: "Asia’s largest brackish water lagoon, home to migratory birds and dolphins.",
   },
   {
     name: "Dhauli Peace Pagoda",
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Dhauli_Peace_Pagoda.jpg",
+    img: "https://bhubaneswartourism.in/images/places-to-visit/headers/dhauli-giri-hills-bhubaneswar-tourism-entry-fee-timings-holidays-reviews-header.jpg",
     desc: "The site where Emperor Ashoka embraced peace after the Kalinga War.",
   },
 ];
