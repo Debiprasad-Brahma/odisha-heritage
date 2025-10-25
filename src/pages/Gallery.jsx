@@ -6,7 +6,6 @@ import ImageModal from "../components/ImageModal";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // Merge all sections’ images into one flat array
   const allImages = galleryData.flatMap((section) => section.items);
 
   return (
@@ -21,7 +20,7 @@ const Gallery = () => {
         Odisha Heritage Moments 📸
       </motion.h1>
 
-      {/* Pinterest-style layout */}
+
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {allImages.map((img, idx) => (
           <motion.div
@@ -35,7 +34,7 @@ const Gallery = () => {
             viewport={{ once: true, amount: 0.2 }}
             onClick={() => setSelectedImage(img.src)}
           >
-            {/* Image */}
+
             <img
               src={img.src}
               alt={img.title}
@@ -43,7 +42,6 @@ const Gallery = () => {
               loading="lazy"
             />
 
-            {/* Title overlay */}
             <div className="absolute inset-0 flex items-end justify-start bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100
  transition-all duration-300">
               <h3 className="text-white text-lg font-semibold p-4 drop-shadow-lg tracking-wide">
@@ -54,7 +52,7 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Image modal */}
+
       {selectedImage && (
         <ImageModal image={selectedImage} setSelectedImage={setSelectedImage} />
       )}
