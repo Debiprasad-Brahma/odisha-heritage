@@ -52,8 +52,7 @@ const Gallery = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Image modal */}
+      
       {selectedImage && (
         <ImageModal
           image={selectedImage}
