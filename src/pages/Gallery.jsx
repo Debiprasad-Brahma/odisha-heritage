@@ -6,7 +6,7 @@ import ImageModal from "../components/ImageModal"
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null)
 
-  const allImages = galleryData.flatMap((section) => section.items)
+  const allImages = galleryData.flatMap((section) => section.items);
 
   return (
     <div className="min-h-screen bg-[#FFF8F0] py-16 px-6">
@@ -20,6 +20,7 @@ const Gallery = () => {
         Odisha Heritage Moments 📸
       </motion.h1>
 
+354ecf5e31f73744de974602331a725df5dcfd3c
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {allImages.map((img, idx) => (
           <motion.div
@@ -41,10 +42,8 @@ const Gallery = () => {
               loading="lazy"
             />
 
-            <div
-              className="absolute inset-0 flex items-end justify-start bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100
- transition-all duration-300"
-            >
+            <div className="absolute inset-0 flex items-end justify-start bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100
+ transition-all duration-300">
               <h3 className="text-white text-lg font-semibold p-4 drop-shadow-lg tracking-wide">
                 {img.title}
               </h3>
@@ -52,7 +51,6 @@ const Gallery = () => {
           </motion.div>
         ))}
       </div>
-      
       {selectedImage && (
         <ImageModal
           image={selectedImage}
