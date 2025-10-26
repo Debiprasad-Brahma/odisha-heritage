@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#1e1e1e] text-gray-300 py-10 text-center">
@@ -9,10 +10,10 @@ const Footer = () => {
         Discover the rich cultural legacy and timeless beauty of Odisha.
       </p>
       <div className="space-x-4 mb-4">
-        <a href="#" className="hover:text-yellow-400">Home</a>
-        <a href="#" className="hover:text-yellow-400">Explore</a>
-        <a href="#" className="hover:text-yellow-400">About</a>
-        <a href="#" className="hover:text-yellow-400">Contact</a>
+        <Link to="/" className="hover:text-yellow-400">Home</Link>
+        <Link to="/explore" className="hover:text-yellow-400">Explore</Link>
+        <Link to="/about" className="hover:text-yellow-400">About</Link>
+        <Link to="/contact" className="hover:text-yellow-400">Contact</Link>
       </div>
       <p className="text-xs text-gray-500">
         © {new Date().getFullYear()} Odisha Heritage Explorer. All rights reserved.
