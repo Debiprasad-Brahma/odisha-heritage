@@ -19,8 +19,7 @@ const Gallery = () => {
       >
         Odisha Heritage Moments 📸
       </motion.h1>
-
-354ecf5e31f73744de974602331a725df5dcfd3c
+      
       <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
         {allImages.map((img, idx) => (
           <motion.div
