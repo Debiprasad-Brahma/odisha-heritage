@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React, {useState} from "react"
+import {motion} from "framer-motion"
+import {Link, useNavigate} from "react-router-dom"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -8,35 +8,62 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-  });
+  })
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => setFormData({...formData, [e.target.name]: e.target.value})
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add the api from the backend
-    console.log("Register data:", formData);
-    alert("✅ Registration submitted!");
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Password doesn't match")
+      return
+    }
+
+    try {
+      const res = await fetch("http://localhost:3000/api/users/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        alert(data.message || "Registration failed. Please try again.")
+        return
+      }
+
+      localStorage.setItem("userinfo", JSON.stringify(data))
+
+      alert("✅ Registration successful!")
+      window.location.href = "/"
+    } catch (error) {
+      console.error(error)
+      alert("Something went wrong. Please try again later.")
+    }
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-yellow-50 to-amber-100">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={{opacity: 0, y: 30}}
+        animate={{opacity: 1, y: 0}}
+        transition={{duration: 0.8}}
         className="bg-white/80 backdrop-blur-xl shadow-xl rounded-2xl p-8 w-[90%] max-w-md"
       >
-        <h2 className="text-3xl font-bold text-center text-amber-700 mb-6">
-          Create Account
-        </h2>
+        <h2 className="text-3xl font-bold text-center text-amber-700 mb-6">Create Account</h2>
 
-        <form className="space-y-5" onSubmit={handleSubmit}>
+        <form
+          className="space-y-5"
+          onSubmit={handleSubmit}
+        >
           <div>
-            <label className="block mb-2 text-sm font-semibold text-gray-700">
-              Full Name
-            </label>
+            <label className="block mb-2 text-sm font-semibold text-gray-700">Full Name</label>
             <input
               type="text"
               name="name"
@@ -49,9 +76,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-semibold text-gray-700">
-              Email
-            </label>
+            <label className="block mb-2 text-sm font-semibold text-gray-700">Email</label>
             <input
               type="email"
               name="email"
@@ -64,9 +89,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-semibold text-gray-700">
-              Password
-            </label>
+            <label className="block mb-2 text-sm font-semibold text-gray-700">Password</label>
             <input
               type="password"
               name="password"
@@ -103,13 +126,16 @@ const Register = () => {
 
         <p className="text-sm text-center text-gray-600 mt-6">
           Already have an account?{" "}
-          <Link to="/login" className="text-amber-700 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-amber-700 font-semibold hover:underline"
+          >
             Login
           </Link>
         </p>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
