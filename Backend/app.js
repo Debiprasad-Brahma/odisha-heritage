@@ -19,11 +19,13 @@ app.use(
   }),
 )
 
+//* Testing for the start
 app.get("/", (req, res) => {
   res.send("Hello Odisha Heritage explorer")
 })
 
-
-
+//* import Routes
+import healthCheckRouter from "./routes/healthCheck.route.js"
+app.use("/api/v1/healthcheck", healthCheckRouter)
 
 export default app
