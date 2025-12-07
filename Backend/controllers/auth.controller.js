@@ -59,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     subject: "Please verify your email",
     mailgenContent: emailVerificationMailgenContent(
       user.username,
-      `${process.env.FRONTEND_URL}/verify-email/${unHashedToken}`, //? This will take to the frontend page
+      `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unHashedToken}`, //? This will take to the frontend page so add a frontend route here in future form frontend you will send the req to "/api/v1/users/verify-email/${unHashedToken}" this route for erification and add a route in backend for this
     ),
   })
 
