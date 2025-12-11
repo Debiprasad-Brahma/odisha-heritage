@@ -13,6 +13,9 @@ import jwt from "jsonwebtoken"
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId)
+     if (!user) {
+      throw new ApiError(400, "User not found while generating tokens");
+    }
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
 
@@ -20,7 +23,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
     await user.save({validateBeforeSave: false})
     return {accessToken, refreshToken}
   } catch (error) {
-    throw new ApiError(500, "Something went wrong while generating the access token")
+    throw new ApiError(500, "Something went wrong while generating access token")
   }
 }
 
@@ -84,8 +87,9 @@ const registerUser = asyncHandler(async (req, res) => {
     )
 })
 
+//REVIEW - Login the user
 const login = asyncHandler(async (req, res) => {
-  const {email, password, username} = req.body
+  const {email, password} = req.body
 
   //* If user doesn't provide one of them
   if (!email || !password) {
@@ -99,7 +103,11 @@ const login = asyncHandler(async (req, res) => {
   }
 
   //* Validate password
-  const isPasswordValid = await user.isPasswordCorrect(password) //* Not initiated that method
+  const isPasswordValid = await user.isPasswordCorrect(password) //* That method is in user schema
+
+  if (!isPasswordValid) {
+    throw new ApiError(400, "invalid credentials")
+  }
 
   const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
 
