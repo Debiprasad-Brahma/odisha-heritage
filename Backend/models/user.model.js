@@ -1,7 +1,8 @@
-import mongoose, {Schema} from "mongoose"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import crypto from "crypto"
+import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
+
 
 //* The User Schema
 const userSchema = new Schema(

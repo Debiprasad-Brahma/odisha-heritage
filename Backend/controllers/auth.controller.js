@@ -59,7 +59,7 @@ const registerUser = asyncHandler(async (req, res) => {
     subject: "Please verify your email",
     mailgenContent: emailVerificationMailgenContent(
       user.username,
-      `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unHashedToken}`, //? This will take to the frontend page so add a frontend route here in future form frontend you will send the req to "/api/v1/users/verify-email/${unHashedToken}" this route for erification and add a route in backend for this
+      `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unHashedToken}`, //? This will take to the frontend page so add a frontend route here in future from frontend you will send the req to "/api/v1/users/verify-email/${unHashedToken}" this route for erification and add a route in backend for this
     ),
   })
 
@@ -83,3 +83,47 @@ const registerUser = asyncHandler(async (req, res) => {
       ),
     )
 })
+
+const login = asyncHandler(async (req, res) => {
+  const {email, password, username} = req.body
+
+  //* If user doesn't provide one of them
+  if (!email || !password) {
+    throw new ApiError(400, "email and password required")
+  }
+
+  const user = await User.findOne({email})
+  //* If the user doesn't exists
+  if (!user) {
+    throw new ApiError(400, "user doesn't exists")
+  }
+
+  //* Validate password
+  const isPasswordValid = await user.isPasswordCorrect(password) //* Not initiated that method
+
+  const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
+
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken -emailVerificationToken -emailVerificationExpiry",
+  )
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  }
+
+  //* Return the response during testing
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(
+        200,
+        {user: loggedInUser, accessToken, refreshToken},
+        "User logged in successfully",
+      ),
+    )
+})
+
+export {registerUser, login}
