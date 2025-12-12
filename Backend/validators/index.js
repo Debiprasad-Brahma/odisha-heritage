@@ -1,6 +1,6 @@
 import {body} from "express-validator"
 
-//REVIEW -  Validator for the user register
+//SECTION -  Validator for the user register
 const userRegisterValidator = () => {
   return [
     body("email")
@@ -21,7 +21,7 @@ const userRegisterValidator = () => {
   ]
 }
 
-//REVIEW -  Validator for the user register
+//SECTION -  Validator for the user register
 const userLoginValidator = () => {
   return [
     body("email")

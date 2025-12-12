@@ -9,12 +9,12 @@ import {
 } from "../utils/mail.js"
 import jwt from "jsonwebtoken"
 
-//REVIEW Get the access and refresh token
+//SECTION Get the access and refresh token
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId)
-     if (!user) {
-      throw new ApiError(400, "User not found while generating tokens");
+    if (!user) {
+      throw new ApiError(400, "User not found while generating tokens")
     }
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
@@ -27,7 +27,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 }
 
-//REVIEW Register the user
+//SECTION Register the user
 const registerUser = asyncHandler(async (req, res) => {
   const {email, username, password} = req.body //* get the required fields
 
@@ -87,7 +87,7 @@ const registerUser = asyncHandler(async (req, res) => {
     )
 })
 
-//REVIEW - Login the user
+//SECTION - Login the user
 const login = asyncHandler(async (req, res) => {
   const {email, password} = req.body
 
@@ -118,6 +118,8 @@ const login = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "none",
+    path: "/",
   }
 
   //* Return the response during testing
@@ -134,4 +136,29 @@ const login = asyncHandler(async (req, res) => {
     )
 })
 
-export {registerUser, login}
+//SECTION - Logout the user
+const logoutUser = asyncHandler(async (req, res) => {
+  //* Reset The refresh token
+  await User.findByIdAndDelete(
+    req.user._id,
+    {
+      $set: {refreshToken: ""},
+    },
+    {new: true},
+  )
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  path: "/"
+  }
+
+  return res
+    .status(200)
+    .clearCookie("accessToken", options)
+    .clearCookie("refreshToken", options)
+    .json(new ApiResponse(200, {}, "User Logged out"))
+})
+
+export {registerUser, login, logoutUser}
